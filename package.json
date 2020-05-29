@@ -1,0 +1,38 @@
+{
+  "name": "zensele-tabs",
+  "version": "0.0.3",
+  "description": "Svelte tabs component",
+  "author": {
+    "email": "stefan.stoichev@gmail.com",
+    "name": "Stefan Stoichev @countnazgul",
+    "url": "https://sstoichev.eu"
+  },
+  "svelte": "src/index.js",
+  "module": "build/index.mjs",
+  "main": "build/index.js",
+  "keywords": [
+    "svelte",
+    "tabs",
+    "tab"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rollup": "^1.12.0",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "svelte": "^3.0.0",
+    "sirv-cli": "^0.4.4"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "autobuild": "rollup -c -w",
+    "dev": "run-p start:dev autobuild",
+    "start": "sirv public --single",
+    "start:dev": "sirv public --single --dev",
+    "deploy": "rollup -c && gh-pages -d public"
+  }
+}
