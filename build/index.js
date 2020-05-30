@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = global || self, factory(global.ZenzeleTabs = {}));
+    (global = global || self, factory(global.ZenseleTabs = {}));
 }(this, (function (exports) { 'use strict';
 
     function noop() { }
@@ -528,7 +528,7 @@
     	let isSelected;
 
     	onMount(async () => {
-    		await tick();
+    		
     	});
 
     	function div0_binding($$value) {
@@ -539,7 +539,7 @@
 
     	const click_handler = () => {
     		element.focus();
-    		selectedTab.set(index);
+    		if ($selectedTab != index) selectedTab.set(index);
     	};
 
     	$$self.$set = $$props => {
@@ -984,13 +984,14 @@
     	component_subscribe($$self, selectedTab, $$value => $$invalidate(6, $selectedTab = $$value));
     	const dispatch = createEventDispatcher();
     	let { tabs = [] } = $$props;
-    	let { selectedTabIndex = 0 } = $$props;
+    	let { selectedTabIndex } = $$props;
     	let { color = "#4f81e5" } = $$props;
     	let { property } = $$props;
     	let originalTabs = [];
 
-    	onMount(() => {
+    	onMount(async () => {
     		selectedTab.set(selectedTabIndex);
+    		await tick();
 
     		if (property) {
     			$$invalidate(5, originalTabs = [...tabs]);
@@ -1017,6 +1018,10 @@
     	};
 
     	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*selectedTabIndex*/ 8) {
+    			 selectTab(selectedTabIndex);
+    		}
+
     		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 113) {
     			 {
     				let data = {

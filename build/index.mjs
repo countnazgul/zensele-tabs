@@ -522,7 +522,7 @@ function instance($$self, $$props, $$invalidate) {
 	let isSelected;
 
 	onMount(async () => {
-		await tick();
+		
 	});
 
 	function div0_binding($$value) {
@@ -533,7 +533,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	const click_handler = () => {
 		element.focus();
-		selectedTab.set(index);
+		if ($selectedTab != index) selectedTab.set(index);
 	};
 
 	$$self.$set = $$props => {
@@ -978,13 +978,14 @@ function instance$2($$self, $$props, $$invalidate) {
 	component_subscribe($$self, selectedTab, $$value => $$invalidate(6, $selectedTab = $$value));
 	const dispatch = createEventDispatcher();
 	let { tabs = [] } = $$props;
-	let { selectedTabIndex = 0 } = $$props;
+	let { selectedTabIndex } = $$props;
 	let { color = "#4f81e5" } = $$props;
 	let { property } = $$props;
 	let originalTabs = [];
 
-	onMount(() => {
+	onMount(async () => {
 		selectedTab.set(selectedTabIndex);
+		await tick();
 
 		if (property) {
 			$$invalidate(5, originalTabs = [...tabs]);
@@ -1011,6 +1012,10 @@ function instance$2($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*selectedTabIndex*/ 8) {
+			 selectTab(selectedTabIndex);
+		}
+
 		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 113) {
 			 {
 				let data = {

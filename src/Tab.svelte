@@ -16,9 +16,7 @@
     }
   }
 
-  onMount(async () => {
-    await tick();
-  });
+  onMount(async () => {});
 </script>
 
 <style>
@@ -50,7 +48,7 @@
 <div
   on:click={() => {
     element.focus();
-    selectedTab.set(index);
+    if ($selectedTab != index) selectedTab.set(index);
   }}
   class="zenzele-tabs__tab"
   class:zenzele-tabs__selected={isSelected}

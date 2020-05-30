@@ -1,40 +1,41 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { createEventDispatcher } from "svelte";
-  //   import { writable } from "svelte/store";
   import TabList from "./TabList.svelte";
   import { selectedTab } from "./store";
 
   const dispatch = createEventDispatcher();
 
   export let tabs = [];
-  export let selectedTabIndex = 0;
+  export let selectedTabIndex;
   export let color = "#4f81e5";
   export let property;
 
+  $: selectTab(selectedTabIndex);
   let originalTabs = [];
 
   $: {
     let data = {
       index: $selectedTab,
-      data: tabs[$selectedTab],
+      data: tabs[$selectedTab]
     };
 
     if (property) {
       data = {
         index: $selectedTab,
-        data: originalTabs[$selectedTab],
+        data: originalTabs[$selectedTab]
       };
     }
 
     dispatch("tabIndexChange", data);
   }
 
-  onMount(() => {
+  onMount(async () => {
     selectedTab.set(selectedTabIndex);
+    await tick();
     if (property) {
       originalTabs = [...tabs];
-      tabs = tabs.map(function (t) {
+      tabs = tabs.map(function(t) {
         return t[property];
       });
     }
@@ -58,5 +59,6 @@
   <TabList
     {tabs}
     {color}
-    on:tabIndexChange={(event) => selectTab(event.detail)} />
+    on:tabIndexChange={event => selectTab(event.detail)} />
+
 </div>

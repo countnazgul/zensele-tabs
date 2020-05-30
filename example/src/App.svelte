@@ -1,6 +1,6 @@
 <script>
-  // import { Tabs } from "../../build/index.js";
-  import { Tabs } from "zensele-tabs";
+  import { Tabs } from "../../build/index.js";
+  // import { Tabs } from "zensele-tabs";
 
   let tabs = [
     { name: "One 1", blah: 123 },
@@ -18,7 +18,7 @@
     { name: "Thirteen 13", blah: 123 },
     { name: "Fourteen 14", blah: 123 },
     { name: "Fifteen 15", blah: 123 },
-    { name: "And avery very very very very very long one", blah: 123 },
+    { name: "And avery very very very very very long one", blah: 123 }
   ];
 
   // let tabs1 = [
@@ -41,6 +41,8 @@
   // ];
 
   let show = true;
+  $: active = 0;
+  $: console.log(active);
 </script>
 
 <style>
@@ -51,12 +53,12 @@
 </style>
 
 <main>
-  <button on:click={() => (show = !show)}>TEST</button>
+  <button on:click={() => (active++)}>TEST</button>
   {#if show}
     <Tabs
       {tabs}
-      on:tabIndexChange={(event) => console.log(event.detail)}
-      selectedTabIndex={1}
+      on:tabIndexChange={event => console.log(event.detail)}
+      selectedTabIndex={active}
       color={'red'}
       property={'name'} />
   {/if}
