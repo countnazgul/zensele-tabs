@@ -7,11 +7,12 @@
   const dispatch = createEventDispatcher();
 
   export let tabs = [];
-  export let selectedTabIndex;
   export let color = "#4f81e5";
-  export let property;
+  export let property = null;
+  export function selectedTabIndex(data) {
+    selectTab(data);
+  }
 
-  $: selectTab(selectedTabIndex);
   let originalTabs = [];
 
   $: {
@@ -31,7 +32,7 @@
   }
 
   onMount(async () => {
-    selectedTab.set(selectedTabIndex);
+    // selectedTab.set(selectedTabIndex);
     await tick();
     if (property) {
       originalTabs = [...tabs];

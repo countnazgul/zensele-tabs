@@ -49,7 +49,6 @@ Check out this [repl](https://svelte.dev/repl/b3842886317b4e4e93986c629de007e7?v
 ## Properties
 
 - `tabs` - array (or objects array) with the values that should be displayed as labels
-- `selectedTabIndex` - index of the initial selected label
 - `color` - what color to be the active tab text and bottom border
 - `property` - when object array is passed, as `tabs`, specify which object property to be used as label
 
@@ -89,3 +88,28 @@ Check out this [repl](https://svelte.dev/repl/b3842886317b4e4e93986c629de007e7?v
       }
   }
   ```
+## Setting active tab
+
+The component expose `selectedTabIndex` function which is used to set the active tab. Just pass the required tab index that need to be "activated"
+
+```javascript
+<script>
+    import { Tabs } from "zensele-tabs";
+
+    let tabBar;
+    function changedType(type) {
+        tabBar.selectedTabIndex(0)
+    }
+
+    let tabs = [
+        { name: "One 1", blah: 123 },
+        { name: "Two 2", blah: 123 },
+        { name: "Three 3", blah: 123 },
+    ];
+
+</script>
+
+<div>
+    <Tabs {tabs} bind:this="{tabBar}"/>
+</div>
+    ```

@@ -978,13 +978,17 @@ function instance$2($$self, $$props, $$invalidate) {
 	component_subscribe($$self, selectedTab, $$value => $$invalidate(6, $selectedTab = $$value));
 	const dispatch = createEventDispatcher();
 	let { tabs = [] } = $$props;
-	let { selectedTabIndex } = $$props;
 	let { color = "#4f81e5" } = $$props;
-	let { property } = $$props;
+	let { property = null } = $$props;
+
+	function selectedTabIndex(data) {
+		selectTab(data);
+	}
+
 	let originalTabs = [];
 
 	onMount(async () => {
-		selectedTab.set(selectedTabIndex);
+		// selectedTab.set(selectedTabIndex);
 		await tick();
 
 		if (property) {
@@ -1006,17 +1010,12 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	$$self.$set = $$props => {
 		if ("tabs" in $$props) $$invalidate(0, tabs = $$props.tabs);
-		if ("selectedTabIndex" in $$props) $$invalidate(3, selectedTabIndex = $$props.selectedTabIndex);
 		if ("color" in $$props) $$invalidate(1, color = $$props.color);
-		if ("property" in $$props) $$invalidate(4, property = $$props.property);
+		if ("property" in $$props) $$invalidate(3, property = $$props.property);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*selectedTabIndex*/ 8) {
-			 selectTab(selectedTabIndex);
-		}
-
-		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 113) {
+		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 105) {
 			 {
 				let data = {
 					index: $selectedTab,
@@ -1039,8 +1038,8 @@ function instance$2($$self, $$props, $$invalidate) {
 		tabs,
 		color,
 		selectTab,
-		selectedTabIndex,
 		property,
+		selectedTabIndex,
 		originalTabs,
 		$selectedTab,
 		dispatch,
@@ -1055,10 +1054,14 @@ class Tabs extends SvelteComponent {
 
 		init(this, options, instance$2, create_fragment$2, safe_not_equal, {
 			tabs: 0,
-			selectedTabIndex: 3,
 			color: 1,
-			property: 4
+			property: 3,
+			selectedTabIndex: 4
 		});
+	}
+
+	get selectedTabIndex() {
+		return this.$$.ctx[4];
 	}
 }
 
