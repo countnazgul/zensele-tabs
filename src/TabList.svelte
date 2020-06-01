@@ -25,6 +25,10 @@
     }
   }
 
+  function addTab() {
+    dispatch("addTab");
+  }
+
   function nextTab() {
     dispatch("tabIndexChange", $selectedTab + 1);
   }
@@ -61,9 +65,27 @@
   input:focus {
     outline: none;
   }
+
+  .zenzele-tabs__add {
+    font-size: 30px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    min-width: 30px;
+    border-right: 2px solid var(--theme-color);
+    border-bottom: 2px solid var(--theme-color);
+    cursor: pointer;
+  }
 </style>
 
 <div class="zenzele-tabs__tab-list">
+  <div
+    on:click={addTab}
+    class="zenzele-tabs__add"
+    style="--theme-color: {color}"
+    title="Add tab">
+    +
+  </div>
   {#if visibleArrows}
     <div on:click={prevTab} class="zenzele-tabs__center" title="Previous tab">
       <input
@@ -79,7 +101,11 @@
     bind:this={tabsContainer}
     bind:clientWidth={w}>
     {#each tabs as tab, index}
-      <Tab {index} {color} label={tab} />
+      <Tab
+        {index}
+        {color}
+        label={tab}
+        on:removeTab={event => dispatch('removeTab', event.detail)} />
     {/each}
 
   </div>

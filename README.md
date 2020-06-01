@@ -89,6 +89,10 @@ Check out this [repl](https://svelte.dev/repl/b3842886317b4e4e93986c629de007e7?v
       }
   }
   ```
+
+  - `addTab` - when add tab button is pressed. Apart from the event iteself no other details are passed
+  - `removeTab` - each tab have a remove button when the tab is active). The event returns the index of the tab that triggered it
+
 ## Setting active tab
 
 The component expose `selectedTabIndex` function which is used to set the active tab. Just pass the required tab index that need to be "activated"

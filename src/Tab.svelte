@@ -1,6 +1,9 @@
 <script>
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, createEventDispatcher } from "svelte";
   import { selectedTab } from "./store";
+  import { images } from "./images";
+
+  const dispatch = createEventDispatcher();
 
   export let index;
   export let label;
@@ -38,6 +41,22 @@
     color: var(--theme-color);
   }
 
+  .zenzele-tabs__remove-container {
+    padding-left: 10px;
+    align-items: center;
+  }
+  .zenzele-tabs__remove {
+    width: 7px;
+    height: 7px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
   .titleContent {
     white-space: nowrap;
     overflow: hidden;
@@ -53,5 +72,18 @@
   class="zenzele-tabs__tab"
   class:zenzele-tabs__selected={isSelected}
   style="--theme-color: {color}">
-  <div bind:this={element} class="titleContent" title={label}>{label}</div>
+  <div style="display: flex">
+    <div bind:this={element} class="titleContent" title={label}>{label}</div>
+    {#if isSelected}
+      <div class="zenzele-tabs__remove-container">
+        <input
+          on:click={() => dispatch('removeTab', index)}
+          class="zenzele-tabs__remove"
+          type="image"
+          alt="Remove tab"
+          src={images.remove} />
+      </div>
+    {/if}
+  </div>
+
 </div>

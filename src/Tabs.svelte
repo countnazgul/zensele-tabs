@@ -63,6 +63,8 @@
     {tabs}
     {color}
     {showNavigation}
-    on:tabIndexChange={event => selectTab(event.detail)} />
+    on:tabIndexChange={event => selectTab(event.detail)}
+    on:addTab={() => dispatch('addTab')}
+    on:removeTab={event => dispatch('removeTab', event.detail)} />
 
 </div>
