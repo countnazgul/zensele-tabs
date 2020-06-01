@@ -9,6 +9,8 @@
   export let tabs = [];
   export let color = "#4f81e5";
   export let property = null;
+  export let showNavigation = true;
+
   export function selectedTabIndex(data) {
     selectTab(data);
   }
@@ -60,6 +62,7 @@
   <TabList
     {tabs}
     {color}
+    {showNavigation}
     on:tabIndexChange={event => selectTab(event.detail)} />
 
 </div>

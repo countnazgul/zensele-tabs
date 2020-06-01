@@ -7,16 +7,20 @@
 
   export let tabs;
   export let color;
+  export let showNavigation;
+
   let tabsContainer;
   let w;
 
-  $: visibleArrows = false;
+  $: visibleArrows = true;
   $: {
-    if (tabsContainer) {
-      if (w < tabsContainer.scrollWidth) {
-        visibleArrows = true;
-      } else {
-        visibleArrows = false;
+    if (!showNavigation) {
+      if (tabsContainer) {
+        if (w < tabsContainer.scrollWidth) {
+          visibleArrows = true;
+        } else {
+          visibleArrows = false;
+        }
       }
     }
   }

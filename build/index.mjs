@@ -587,12 +587,12 @@ function add_css$1() {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[11] = list[i];
-	child_ctx[13] = i;
+	child_ctx[12] = list[i];
+	child_ctx[14] = i;
 	return child_ctx;
 }
 
-// (63:2) {#if visibleArrows}
+// (67:2) {#if visibleArrows}
 function create_if_block_1(ctx) {
 	let div;
 	let input;
@@ -629,15 +629,15 @@ function create_if_block_1(ctx) {
 	};
 }
 
-// (77:4) {#each tabs as tab, index}
+// (81:4) {#each tabs as tab, index}
 function create_each_block(ctx) {
 	let current;
 
 	const tab = new Tab({
 			props: {
-				index: /*index*/ ctx[13],
+				index: /*index*/ ctx[14],
 				color: /*color*/ ctx[1],
-				label: /*tab*/ ctx[11]
+				label: /*tab*/ ctx[12]
 			}
 		});
 
@@ -652,7 +652,7 @@ function create_each_block(ctx) {
 		p(ctx, dirty) {
 			const tab_changes = {};
 			if (dirty & /*color*/ 2) tab_changes.color = /*color*/ ctx[1];
-			if (dirty & /*tabs*/ 1) tab_changes.label = /*tab*/ ctx[11];
+			if (dirty & /*tabs*/ 1) tab_changes.label = /*tab*/ ctx[12];
 			tab.$set(tab_changes);
 		},
 		i(local) {
@@ -670,7 +670,7 @@ function create_each_block(ctx) {
 	};
 }
 
-// (83:2) {#if visibleArrows}
+// (87:2) {#if visibleArrows}
 function create_if_block(ctx) {
 	let div;
 	let input;
@@ -742,7 +742,7 @@ function create_fragment$1(ctx) {
 			t1 = space();
 			if (if_block1) if_block1.c();
 			attr(div0, "class", "zenzele-tabs__list svelte-1061y9t");
-			add_render_callback(() => /*div0_elementresize_handler*/ ctx[10].call(div0));
+			add_render_callback(() => /*div0_elementresize_handler*/ ctx[11].call(div0));
 			attr(div1, "class", "zenzele-tabs__tab-list svelte-1061y9t");
 		},
 		m(target, anchor) {
@@ -755,8 +755,8 @@ function create_fragment$1(ctx) {
 				each_blocks[i].m(div0, null);
 			}
 
-			/*div0_binding*/ ctx[9](div0);
-			div0_resize_listener = add_resize_listener(div0, /*div0_elementresize_handler*/ ctx[10].bind(div0));
+			/*div0_binding*/ ctx[10](div0);
+			div0_resize_listener = add_resize_listener(div0, /*div0_elementresize_handler*/ ctx[11].bind(div0));
 			append(div1, t1);
 			if (if_block1) if_block1.m(div1, null);
 			current = true;
@@ -837,7 +837,7 @@ function create_fragment$1(ctx) {
 			if (detaching) detach(div1);
 			if (if_block0) if_block0.d();
 			destroy_each(each_blocks, detaching);
-			/*div0_binding*/ ctx[9](null);
+			/*div0_binding*/ ctx[10](null);
 			div0_resize_listener();
 			if (if_block1) if_block1.d();
 		}
@@ -846,10 +846,11 @@ function create_fragment$1(ctx) {
 
 function instance$1($$self, $$props, $$invalidate) {
 	let $selectedTab;
-	component_subscribe($$self, selectedTab, $$value => $$invalidate(7, $selectedTab = $$value));
+	component_subscribe($$self, selectedTab, $$value => $$invalidate(8, $selectedTab = $$value));
 	const dispatch = createEventDispatcher();
 	let { tabs } = $$props;
 	let { color } = $$props;
+	let { showNavigation } = $$props;
 	let tabsContainer;
 	let w;
 
@@ -875,25 +876,28 @@ function instance$1($$self, $$props, $$invalidate) {
 	$$self.$set = $$props => {
 		if ("tabs" in $$props) $$invalidate(0, tabs = $$props.tabs);
 		if ("color" in $$props) $$invalidate(1, color = $$props.color);
+		if ("showNavigation" in $$props) $$invalidate(7, showNavigation = $$props.showNavigation);
 	};
 
 	let visibleArrows;
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*tabsContainer, w*/ 12) {
+		if ($$self.$$.dirty & /*showNavigation, tabsContainer, w*/ 140) {
 			 {
-				if (tabsContainer) {
-					if (w < tabsContainer.scrollWidth) {
-						$$invalidate(4, visibleArrows = true);
-					} else {
-						$$invalidate(4, visibleArrows = false);
+				if (!showNavigation) {
+					if (tabsContainer) {
+						if (w < tabsContainer.scrollWidth) {
+							$$invalidate(4, visibleArrows = true);
+						} else {
+							$$invalidate(4, visibleArrows = false);
+						}
 					}
 				}
 			}
 		}
 	};
 
-	 $$invalidate(4, visibleArrows = false);
+	 $$invalidate(4, visibleArrows = true);
 
 	return [
 		tabs,
@@ -903,6 +907,7 @@ function instance$1($$self, $$props, $$invalidate) {
 		visibleArrows,
 		nextTab,
 		prevTab,
+		showNavigation,
 		$selectedTab,
 		dispatch,
 		div0_binding,
@@ -914,7 +919,7 @@ class TabList extends SvelteComponent {
 	constructor(options) {
 		super();
 		if (!document.getElementById("svelte-1061y9t-style")) add_css$1();
-		init(this, options, instance$1, create_fragment$1, safe_not_equal, { tabs: 0, color: 1 });
+		init(this, options, instance$1, create_fragment$1, safe_not_equal, { tabs: 0, color: 1, showNavigation: 7 });
 	}
 }
 
@@ -934,11 +939,12 @@ function create_fragment$2(ctx) {
 	const tablist = new TabList({
 			props: {
 				tabs: /*tabs*/ ctx[0],
-				color: /*color*/ ctx[1]
+				color: /*color*/ ctx[1],
+				showNavigation: /*showNavigation*/ ctx[2]
 			}
 		});
 
-	tablist.$on("tabIndexChange", /*tabIndexChange_handler*/ ctx[8]);
+	tablist.$on("tabIndexChange", /*tabIndexChange_handler*/ ctx[9]);
 
 	return {
 		c() {
@@ -955,6 +961,7 @@ function create_fragment$2(ctx) {
 			const tablist_changes = {};
 			if (dirty & /*tabs*/ 1) tablist_changes.tabs = /*tabs*/ ctx[0];
 			if (dirty & /*color*/ 2) tablist_changes.color = /*color*/ ctx[1];
+			if (dirty & /*showNavigation*/ 4) tablist_changes.showNavigation = /*showNavigation*/ ctx[2];
 			tablist.$set(tablist_changes);
 		},
 		i(local) {
@@ -975,11 +982,12 @@ function create_fragment$2(ctx) {
 
 function instance$2($$self, $$props, $$invalidate) {
 	let $selectedTab;
-	component_subscribe($$self, selectedTab, $$value => $$invalidate(6, $selectedTab = $$value));
+	component_subscribe($$self, selectedTab, $$value => $$invalidate(7, $selectedTab = $$value));
 	const dispatch = createEventDispatcher();
 	let { tabs = [] } = $$props;
 	let { color = "#4f81e5" } = $$props;
 	let { property = null } = $$props;
+	let { showNavigation = true } = $$props;
 
 	function selectedTabIndex(data) {
 		selectTab(data);
@@ -992,7 +1000,7 @@ function instance$2($$self, $$props, $$invalidate) {
 		await tick();
 
 		if (property) {
-			$$invalidate(5, originalTabs = [...tabs]);
+			$$invalidate(6, originalTabs = [...tabs]);
 
 			$$invalidate(0, tabs = tabs.map(function (t) {
 				return t[property];
@@ -1011,11 +1019,12 @@ function instance$2($$self, $$props, $$invalidate) {
 	$$self.$set = $$props => {
 		if ("tabs" in $$props) $$invalidate(0, tabs = $$props.tabs);
 		if ("color" in $$props) $$invalidate(1, color = $$props.color);
-		if ("property" in $$props) $$invalidate(3, property = $$props.property);
+		if ("property" in $$props) $$invalidate(4, property = $$props.property);
+		if ("showNavigation" in $$props) $$invalidate(2, showNavigation = $$props.showNavigation);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 105) {
+		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 209) {
 			 {
 				let data = {
 					index: $selectedTab,
@@ -1037,6 +1046,7 @@ function instance$2($$self, $$props, $$invalidate) {
 	return [
 		tabs,
 		color,
+		showNavigation,
 		selectTab,
 		property,
 		selectedTabIndex,
@@ -1055,13 +1065,14 @@ class Tabs extends SvelteComponent {
 		init(this, options, instance$2, create_fragment$2, safe_not_equal, {
 			tabs: 0,
 			color: 1,
-			property: 3,
-			selectedTabIndex: 4
+			property: 4,
+			showNavigation: 2,
+			selectedTabIndex: 5
 		});
 	}
 
 	get selectedTabIndex() {
-		return this.$$.ctx[4];
+		return this.$$.ctx[5];
 	}
 }
 

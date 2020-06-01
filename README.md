@@ -51,6 +51,7 @@ Check out this [repl](https://svelte.dev/repl/b3842886317b4e4e93986c629de007e7?v
 - `tabs` - array (or objects array) with the values that should be displayed as labels
 - `color` - what color to be the active tab text and bottom border
 - `property` - when object array is passed, as `tabs`, specify which object property to be used as label
+- `showNavigation` - (default `true`) When its set to `false` the navigation arrows will be shown only when there is no enough space for all the tabs to be shown at the same time
 
 ## Events
 
