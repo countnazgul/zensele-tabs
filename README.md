@@ -112,4 +112,4 @@ The component expose `selectedTabIndex` function which is used to set the active
 <div>
     <Tabs {tabs} bind:this="{tabBar}"/>
 </div>
-    ```
+```
