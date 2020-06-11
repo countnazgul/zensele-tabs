@@ -31,6 +31,7 @@
     cursor: pointer;
     max-width: 300px;
     padding: 0.5em 0.75em;
+    flex: 1;
   }
 
   .zenzele-tabs__tab:focus {
@@ -73,7 +74,7 @@
   class="zenzele-tabs__tab"
   class:zenzele-tabs__selected={isSelected}
   style="--theme-color: {color}">
-  <div style="display: flex">
+  <div style="display: flex; justify-content: center">
     <div bind:this={element} class="titleContent" title={label}>{label}</div>
     {#if isSelected}
       {#if enableDelete}

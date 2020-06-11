@@ -1,6 +1,6 @@
 {
   "name": "zensele-tabs",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Svelte tabs component",
   "author": {
     "email": "stefan.stoichev@gmail.com",

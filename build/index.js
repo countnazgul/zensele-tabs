@@ -462,12 +462,12 @@
 
     function add_css() {
     	var style = element("style");
-    	style.id = "svelte-1wz7l1q-style";
-    	style.textContent = ".zenzele-tabs__tab.svelte-1wz7l1q{border:none;border-bottom:2px solid transparent;color:#000000;cursor:pointer;max-width:300px;padding:0.5em 0.75em}.zenzele-tabs__tab.svelte-1wz7l1q:focus{outline:thin dotted}.zenzele-tabs__selected.svelte-1wz7l1q{border-bottom:2px solid;color:var(--theme-color)}.zenzele-tabs__remove-container.svelte-1wz7l1q{padding-left:10px;align-items:center}.zenzele-tabs__remove.svelte-1wz7l1q{width:7px;height:7px;margin:0px;padding:0px;border:0px}input.svelte-1wz7l1q:focus{outline:none}.titleContent.svelte-1wz7l1q{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}";
+    	style.id = "svelte-1y36n9w-style";
+    	style.textContent = ".zenzele-tabs__tab.svelte-1y36n9w{border:none;border-bottom:2px solid transparent;color:#000000;cursor:pointer;max-width:300px;padding:0.5em 0.75em;flex:1}.zenzele-tabs__tab.svelte-1y36n9w:focus{outline:thin dotted}.zenzele-tabs__selected.svelte-1y36n9w{border-bottom:2px solid;color:var(--theme-color)}.zenzele-tabs__remove-container.svelte-1y36n9w{padding-left:10px;align-items:center}.zenzele-tabs__remove.svelte-1y36n9w{width:7px;height:7px;margin:0px;padding:0px;border:0px}input.svelte-1y36n9w:focus{outline:none}.titleContent.svelte-1y36n9w{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}";
     	append(document.head, style);
     }
 
-    // (78:4) {#if isSelected}
+    // (79:4) {#if isSelected}
     function create_if_block(ctx) {
     	let if_block_anchor;
     	let if_block = /*enableDelete*/ ctx[3] && create_if_block_1(ctx);
@@ -502,7 +502,7 @@
     	};
     }
 
-    // (79:6) {#if enableDelete}
+    // (80:6) {#if enableDelete}
     function create_if_block_1(ctx) {
     	let div;
     	let input;
@@ -514,11 +514,11 @@
     		c() {
     			div = element("div");
     			input = element("input");
-    			attr(input, "class", "zenzele-tabs__remove svelte-1wz7l1q");
+    			attr(input, "class", "zenzele-tabs__remove svelte-1y36n9w");
     			attr(input, "type", "image");
     			attr(input, "alt", "Remove tab");
     			if (input.src !== (input_src_value = images.remove)) attr(input, "src", input_src_value);
-    			attr(div, "class", "zenzele-tabs__remove-container svelte-1wz7l1q");
+    			attr(div, "class", "zenzele-tabs__remove-container svelte-1y36n9w");
     		},
     		m(target, anchor) {
     			insert(target, div, anchor);
@@ -556,10 +556,11 @@
     			t0 = text(/*label*/ ctx[1]);
     			t1 = space();
     			if (if_block) if_block.c();
-    			attr(div0, "class", "titleContent svelte-1wz7l1q");
+    			attr(div0, "class", "titleContent svelte-1y36n9w");
     			attr(div0, "title", /*label*/ ctx[1]);
     			set_style(div1, "display", "flex");
-    			attr(div2, "class", "zenzele-tabs__tab svelte-1wz7l1q");
+    			set_style(div1, "justify-content", "center");
+    			attr(div2, "class", "zenzele-tabs__tab svelte-1y36n9w");
     			set_style(div2, "--theme-color", /*color*/ ctx[2]);
     			toggle_class(div2, "zenzele-tabs__selected", /*isSelected*/ ctx[5]);
     		},
@@ -684,7 +685,7 @@
     class Tab extends SvelteComponent {
     	constructor(options) {
     		super();
-    		if (!document.getElementById("svelte-1wz7l1q-style")) add_css();
+    		if (!document.getElementById("svelte-1y36n9w-style")) add_css();
 
     		init(this, options, instance, create_fragment, safe_not_equal, {
     			index: 0,
