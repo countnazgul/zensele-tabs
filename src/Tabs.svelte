@@ -11,6 +11,7 @@
   export let property = null;
   export let showNavigation = true;
   export let enableDelete = true;
+  export let enableAdd = true;
 
   export function selectedTabIndex(data) {
     selectTab(data);
@@ -65,6 +66,7 @@
     {color}
     {showNavigation}
     {enableDelete}
+    {enableAdd}
     on:tabIndexChange={event => selectTab(event.detail)}
     on:addTab={() => dispatch('addTab')}
     on:removeTab={event => dispatch('removeTab', event.detail)} />

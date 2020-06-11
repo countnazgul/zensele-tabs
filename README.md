@@ -53,6 +53,7 @@ Check out this [repl](https://svelte.dev/repl/b3842886317b4e4e93986c629de007e7?v
 - `property` - when object array is passed, as `tabs`, specify which object property to be used as label
 - `showNavigation` - (default `true`) When its set to `false` the navigation arrows will be shown only when there is no enough space for all the tabs to be shown at the same time
 - enableDelete - (default `true`) show/hide delete icon
+- enableAdd - (default `true`) show/hide add icon
 
 ## Events
 

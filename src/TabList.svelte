@@ -9,6 +9,7 @@
   export let color;
   export let showNavigation;
   export let enableDelete;
+  export let enableAdd;
 
   let tabsContainer;
   let w;
@@ -80,13 +81,15 @@
 </style>
 
 <div class="zenzele-tabs__tab-list">
-  <div
-    on:click={addTab}
-    class="zenzele-tabs__add"
-    style="--theme-color: {color}"
-    title="Add tab">
-    +
-  </div>
+  {#if enableAdd}
+    <div
+      on:click={addTab}
+      class="zenzele-tabs__add"
+      style="--theme-color: {color}"
+      title="Add tab">
+      +
+    </div>
+  {/if}
   {#if visibleArrows}
     <div on:click={prevTab} class="zenzele-tabs__center" title="Previous tab">
       <input
