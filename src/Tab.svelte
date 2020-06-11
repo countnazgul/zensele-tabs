@@ -8,6 +8,7 @@
   export let index;
   export let label;
   export let color;
+  export let enableDelete;
 
   let element;
   let isSelected;
@@ -75,14 +76,16 @@
   <div style="display: flex">
     <div bind:this={element} class="titleContent" title={label}>{label}</div>
     {#if isSelected}
-      <div class="zenzele-tabs__remove-container">
-        <input
-          on:click={() => dispatch('removeTab', index)}
-          class="zenzele-tabs__remove"
-          type="image"
-          alt="Remove tab"
-          src={images.remove} />
-      </div>
+      {#if enableDelete}
+        <div class="zenzele-tabs__remove-container">
+          <input
+            on:click={() => dispatch('removeTab', index)}
+            class="zenzele-tabs__remove"
+            type="image"
+            alt="Remove tab"
+            src={images.remove} />
+        </div>
+      {/if}
     {/if}
   </div>
 

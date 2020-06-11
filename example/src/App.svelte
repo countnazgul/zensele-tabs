@@ -57,6 +57,7 @@
   {#if show}
     <Tabs
       {tabs}
+      enableDelete="{false}"
       on:tabIndexChange={event => console.log(event.detail)}
       on:addTab={() => console.log('Add tab event')}
       on:removeTab={event => console.log(`Remove tab --> ${event.detail}`)}

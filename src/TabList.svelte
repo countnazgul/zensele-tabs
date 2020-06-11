@@ -8,6 +8,7 @@
   export let tabs;
   export let color;
   export let showNavigation;
+  export let enableDelete;
 
   let tabsContainer;
   let w;
@@ -104,6 +105,7 @@
       <Tab
         {index}
         {color}
+        {enableDelete}
         label={tab}
         on:removeTab={event => dispatch('removeTab', event.detail)} />
     {/each}

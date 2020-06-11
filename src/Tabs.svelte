@@ -10,6 +10,7 @@
   export let color = "#4f81e5";
   export let property = null;
   export let showNavigation = true;
+  export let enableDelete = true;
 
   export function selectedTabIndex(data) {
     selectTab(data);
@@ -63,6 +64,7 @@
     {tabs}
     {color}
     {showNavigation}
+    {enableDelete}
     on:tabIndexChange={event => selectTab(event.detail)}
     on:addTab={() => dispatch('addTab')}
     on:removeTab={event => dispatch('removeTab', event.detail)} />
