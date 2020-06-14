@@ -1,8 +1,9 @@
 <script>
-  import { onMount, tick } from "svelte";
-  import { createEventDispatcher } from "svelte";
+  import { onMount, tick, createEventDispatcher } from "svelte";
+  import { writable } from "svelte/store";
   import TabList from "./TabList.svelte";
-  import { selectedTab } from "./store";
+
+  const selectedTab = writable(null);
 
   const dispatch = createEventDispatcher();
 
@@ -67,6 +68,7 @@
     {showNavigation}
     {enableDelete}
     {enableAdd}
+    {selectedTab}
     on:tabIndexChange={event => selectTab(event.detail)}
     on:addTab={() => dispatch('addTab')}
     on:removeTab={event => dispatch('removeTab', event.detail)} />

@@ -1,7 +1,7 @@
 <script>
   import { images } from "./images";
   import Tab from "./Tab.svelte";
-  import { selectedTab } from "./store";
+  // import { selectedTab } from "./store";
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
@@ -10,6 +10,7 @@
   export let showNavigation;
   export let enableDelete;
   export let enableAdd;
+  export let selectedTab;
 
   let tabsContainer;
   let w;
@@ -109,6 +110,7 @@
         {index}
         {color}
         {enableDelete}
+        {selectedTab}
         label={tab}
         on:removeTab={event => dispatch('removeTab', event.detail)} />
     {/each}

@@ -1,6 +1,6 @@
 <script>
   import { onMount, tick, createEventDispatcher } from "svelte";
-  import { selectedTab } from "./store";
+  // import { selectedTab } from "./store";
   import { images } from "./images";
 
   const dispatch = createEventDispatcher();
@@ -9,6 +9,7 @@
   export let label;
   export let color;
   export let enableDelete;
+  export let selectedTab;
 
   let element;
   let isSelected;
@@ -29,7 +30,7 @@
     border-bottom: 2px solid transparent;
     color: #000000;
     cursor: pointer;
-    max-width: 300px;
+    /* max-width: 300px; */
     padding: 0.5em 0.75em;
     flex: 1;
   }
