@@ -456,7 +456,7 @@
     	append(document.head, style);
     }
 
-    // (80:4) {#if isSelected}
+    // (86:4) {#if isSelected}
     function create_if_block(ctx) {
     	let if_block_anchor;
     	let if_block = /*enableDelete*/ ctx[3] && create_if_block_1(ctx);
@@ -491,7 +491,7 @@
     	};
     }
 
-    // (81:6) {#if enableDelete}
+    // (87:6) {#if enableDelete}
     function create_if_block_1(ctx) {
     	let div;
     	let input;
@@ -514,7 +514,7 @@
     			append(div, input);
 
     			if (!mounted) {
-    				dispose = listen(input, "click", /*click_handler*/ ctx[10]);
+    				dispose = listen(input, "click", /*click_handler*/ ctx[12]);
     				mounted = true;
     			}
     		},
@@ -533,6 +533,7 @@
     	let div0;
     	let t0;
     	let t1;
+    	let div2_style_value;
     	let mounted;
     	let dispose;
     	let if_block = /*isSelected*/ ctx[6] && create_if_block(ctx);
@@ -550,7 +551,7 @@
     			set_style(div1, "display", "flex");
     			set_style(div1, "justify-content", "center");
     			attr(div2, "class", "zenzele-tabs__tab svelte-7gbf8u");
-    			set_style(div2, "--theme-color", /*color*/ ctx[2]);
+    			attr(div2, "style", div2_style_value = "--theme-color: " + /*color*/ ctx[2] + "; " + /*width*/ ctx[7]);
     			toggle_class(div2, "zenzele-tabs__selected", /*isSelected*/ ctx[6]);
     		},
     		m(target, anchor) {
@@ -558,12 +559,12 @@
     			append(div2, div1);
     			append(div1, div0);
     			append(div0, t0);
-    			/*div0_binding*/ ctx[9](div0);
+    			/*div0_binding*/ ctx[11](div0);
     			append(div1, t1);
     			if (if_block) if_block.m(div1, null);
 
     			if (!mounted) {
-    				dispose = listen(div2, "click", /*click_handler_1*/ ctx[11]);
+    				dispose = listen(div2, "click", /*click_handler_1*/ ctx[13]);
     				mounted = true;
     			}
     		},
@@ -587,8 +588,8 @@
     				if_block = null;
     			}
 
-    			if (dirty & /*color*/ 4) {
-    				set_style(div2, "--theme-color", /*color*/ ctx[2]);
+    			if (dirty & /*color, width*/ 132 && div2_style_value !== (div2_style_value = "--theme-color: " + /*color*/ ctx[2] + "; " + /*width*/ ctx[7])) {
+    				attr(div2, "style", div2_style_value);
     			}
 
     			if (dirty & /*isSelected*/ 64) {
@@ -599,7 +600,7 @@
     		o: noop,
     		d(detaching) {
     			if (detaching) detach(div2);
-    			/*div0_binding*/ ctx[9](null);
+    			/*div0_binding*/ ctx[11](null);
     			if (if_block) if_block.d();
     			mounted = false;
     			dispose();
@@ -610,7 +611,7 @@
     function instance($$self, $$props, $$invalidate) {
     	let $selectedTab,
     		$$unsubscribe_selectedTab = noop,
-    		$$subscribe_selectedTab = () => ($$unsubscribe_selectedTab(), $$unsubscribe_selectedTab = subscribe(selectedTab, $$value => $$invalidate(7, $selectedTab = $$value)), selectedTab);
+    		$$subscribe_selectedTab = () => ($$unsubscribe_selectedTab(), $$unsubscribe_selectedTab = subscribe(selectedTab, $$value => $$invalidate(8, $selectedTab = $$value)), selectedTab);
 
     	$$self.$$.on_destroy.push(() => $$unsubscribe_selectedTab());
     	const dispatch = createEventDispatcher();
@@ -620,11 +621,14 @@
     	let { enableDelete } = $$props;
     	let { selectedTab } = $$props;
     	$$subscribe_selectedTab();
+    	let { maxWidth } = $$props;
     	let element;
     	let isSelected;
 
     	onMount(async () => {
-    		
+    		if (maxWidth) {
+    			$$invalidate(7, width = `max-width: ${maxWidth}px;`);
+    		}
     	});
 
     	function div0_binding($$value) {
@@ -646,10 +650,13 @@
     		if ("color" in $$props) $$invalidate(2, color = $$props.color);
     		if ("enableDelete" in $$props) $$invalidate(3, enableDelete = $$props.enableDelete);
     		if ("selectedTab" in $$props) $$subscribe_selectedTab($$invalidate(4, selectedTab = $$props.selectedTab));
+    		if ("maxWidth" in $$props) $$invalidate(10, maxWidth = $$props.maxWidth);
     	};
 
+    	let width;
+
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$selectedTab, index*/ 129) {
+    		if ($$self.$$.dirty & /*$selectedTab, index*/ 257) {
     			 $$invalidate(6, isSelected = $selectedTab === index);
     		}
 
@@ -662,6 +669,8 @@
     		}
     	};
 
+    	 $$invalidate(7, width = "");
+
     	return [
     		index,
     		label,
@@ -670,8 +679,10 @@
     		selectedTab,
     		element,
     		isSelected,
+    		width,
     		$selectedTab,
     		dispatch,
+    		maxWidth,
     		div0_binding,
     		click_handler,
     		click_handler_1
@@ -688,7 +699,8 @@
     			label: 1,
     			color: 2,
     			enableDelete: 3,
-    			selectedTab: 4
+    			selectedTab: 4,
+    			maxWidth: 10
     		});
     	}
     }
@@ -704,12 +716,12 @@
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[17] = list[i];
-    	child_ctx[19] = i;
+    	child_ctx[18] = list[i];
+    	child_ctx[20] = i;
     	return child_ctx;
     }
 
-    // (85:2) {#if enableAdd}
+    // (86:2) {#if enableAdd}
     function create_if_block_2(ctx) {
     	let div;
     	let t;
@@ -729,7 +741,7 @@
     			append(div, t);
 
     			if (!mounted) {
-    				dispose = listen(div, "click", /*addTab*/ ctx[9]);
+    				dispose = listen(div, "click", /*addTab*/ ctx[10]);
     				mounted = true;
     			}
     		},
@@ -746,7 +758,7 @@
     	};
     }
 
-    // (94:2) {#if visibleArrows}
+    // (95:2) {#if visibleArrows}
     function create_if_block_1$1(ctx) {
     	let div;
     	let input;
@@ -770,7 +782,7 @@
     			append(div, input);
 
     			if (!mounted) {
-    				dispose = listen(div, "click", /*prevTab*/ ctx[11]);
+    				dispose = listen(div, "click", /*prevTab*/ ctx[12]);
     				mounted = true;
     			}
     		},
@@ -783,21 +795,22 @@
     	};
     }
 
-    // (108:4) {#each tabs as tab, index}
+    // (109:4) {#each tabs as tab, index}
     function create_each_block(ctx) {
     	let current;
 
     	const tab = new Tab({
     			props: {
-    				index: /*index*/ ctx[19],
+    				index: /*index*/ ctx[20],
     				color: /*color*/ ctx[1],
     				enableDelete: /*enableDelete*/ ctx[2],
     				selectedTab: /*selectedTab*/ ctx[4],
-    				label: /*tab*/ ctx[17]
+    				label: /*tab*/ ctx[18],
+    				maxWidth: /*maxWidth*/ ctx[5]
     			}
     		});
 
-    	tab.$on("removeTab", /*removeTab_handler*/ ctx[14]);
+    	tab.$on("removeTab", /*removeTab_handler*/ ctx[15]);
 
     	return {
     		c() {
@@ -812,7 +825,8 @@
     			if (dirty & /*color*/ 2) tab_changes.color = /*color*/ ctx[1];
     			if (dirty & /*enableDelete*/ 4) tab_changes.enableDelete = /*enableDelete*/ ctx[2];
     			if (dirty & /*selectedTab*/ 16) tab_changes.selectedTab = /*selectedTab*/ ctx[4];
-    			if (dirty & /*tabs*/ 1) tab_changes.label = /*tab*/ ctx[17];
+    			if (dirty & /*tabs*/ 1) tab_changes.label = /*tab*/ ctx[18];
+    			if (dirty & /*maxWidth*/ 32) tab_changes.maxWidth = /*maxWidth*/ ctx[5];
     			tab.$set(tab_changes);
     		},
     		i(local) {
@@ -830,7 +844,7 @@
     	};
     }
 
-    // (120:2) {#if visibleArrows}
+    // (122:2) {#if visibleArrows}
     function create_if_block$1(ctx) {
     	let div;
     	let input;
@@ -854,7 +868,7 @@
     			append(div, input);
 
     			if (!mounted) {
-    				dispose = listen(div, "click", /*nextTab*/ ctx[10]);
+    				dispose = listen(div, "click", /*nextTab*/ ctx[11]);
     				mounted = true;
     			}
     		},
@@ -876,7 +890,7 @@
     	let t2;
     	let current;
     	let if_block0 = /*enableAdd*/ ctx[3] && create_if_block_2(ctx);
-    	let if_block1 = /*visibleArrows*/ ctx[7] && create_if_block_1$1(ctx);
+    	let if_block1 = /*visibleArrows*/ ctx[8] && create_if_block_1$1(ctx);
     	let each_value = /*tabs*/ ctx[0];
     	let each_blocks = [];
 
@@ -888,7 +902,7 @@
     		each_blocks[i] = null;
     	});
 
-    	let if_block2 = /*visibleArrows*/ ctx[7] && create_if_block$1(ctx);
+    	let if_block2 = /*visibleArrows*/ ctx[8] && create_if_block$1(ctx);
 
     	return {
     		c() {
@@ -906,7 +920,7 @@
     			t2 = space();
     			if (if_block2) if_block2.c();
     			attr(div0, "class", "zenzele-tabs__list svelte-1uiures");
-    			add_render_callback(() => /*div0_elementresize_handler*/ ctx[16].call(div0));
+    			add_render_callback(() => /*div0_elementresize_handler*/ ctx[17].call(div0));
     			attr(div1, "class", "zenzele-tabs__tab-list svelte-1uiures");
     		},
     		m(target, anchor) {
@@ -921,8 +935,8 @@
     				each_blocks[i].m(div0, null);
     			}
 
-    			/*div0_binding*/ ctx[15](div0);
-    			div0_resize_listener = add_resize_listener(div0, /*div0_elementresize_handler*/ ctx[16].bind(div0));
+    			/*div0_binding*/ ctx[16](div0);
+    			div0_resize_listener = add_resize_listener(div0, /*div0_elementresize_handler*/ ctx[17].bind(div0));
     			append(div1, t2);
     			if (if_block2) if_block2.m(div1, null);
     			current = true;
@@ -941,7 +955,7 @@
     				if_block0 = null;
     			}
 
-    			if (/*visibleArrows*/ ctx[7]) {
+    			if (/*visibleArrows*/ ctx[8]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
@@ -954,7 +968,7 @@
     				if_block1 = null;
     			}
 
-    			if (dirty & /*color, enableDelete, selectedTab, tabs, dispatch*/ 279) {
+    			if (dirty & /*color, enableDelete, selectedTab, tabs, maxWidth, dispatch*/ 567) {
     				each_value = /*tabs*/ ctx[0];
     				let i;
 
@@ -981,7 +995,7 @@
     				check_outros();
     			}
 
-    			if (/*visibleArrows*/ ctx[7]) {
+    			if (/*visibleArrows*/ ctx[8]) {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
     				} else {
@@ -1017,7 +1031,7 @@
     			if (if_block0) if_block0.d();
     			if (if_block1) if_block1.d();
     			destroy_each(each_blocks, detaching);
-    			/*div0_binding*/ ctx[15](null);
+    			/*div0_binding*/ ctx[16](null);
     			div0_resize_listener();
     			if (if_block2) if_block2.d();
     		}
@@ -1027,7 +1041,7 @@
     function instance$1($$self, $$props, $$invalidate) {
     	let $selectedTab,
     		$$unsubscribe_selectedTab = noop,
-    		$$subscribe_selectedTab = () => ($$unsubscribe_selectedTab(), $$unsubscribe_selectedTab = subscribe(selectedTab, $$value => $$invalidate(13, $selectedTab = $$value)), selectedTab);
+    		$$subscribe_selectedTab = () => ($$unsubscribe_selectedTab(), $$unsubscribe_selectedTab = subscribe(selectedTab, $$value => $$invalidate(14, $selectedTab = $$value)), selectedTab);
 
     	$$self.$$.on_destroy.push(() => $$unsubscribe_selectedTab());
     	const dispatch = createEventDispatcher();
@@ -1038,6 +1052,7 @@
     	let { enableAdd } = $$props;
     	let { selectedTab } = $$props;
     	$$subscribe_selectedTab();
+    	let { maxWidth } = $$props;
     	let tabsContainer;
     	let w;
 
@@ -1057,35 +1072,36 @@
 
     	function div0_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
-    			$$invalidate(5, tabsContainer = $$value);
+    			$$invalidate(6, tabsContainer = $$value);
     		});
     	}
 
     	function div0_elementresize_handler() {
     		w = this.clientWidth;
-    		$$invalidate(6, w);
+    		$$invalidate(7, w);
     	}
 
     	$$self.$set = $$props => {
     		if ("tabs" in $$props) $$invalidate(0, tabs = $$props.tabs);
     		if ("color" in $$props) $$invalidate(1, color = $$props.color);
-    		if ("showNavigation" in $$props) $$invalidate(12, showNavigation = $$props.showNavigation);
+    		if ("showNavigation" in $$props) $$invalidate(13, showNavigation = $$props.showNavigation);
     		if ("enableDelete" in $$props) $$invalidate(2, enableDelete = $$props.enableDelete);
     		if ("enableAdd" in $$props) $$invalidate(3, enableAdd = $$props.enableAdd);
     		if ("selectedTab" in $$props) $$subscribe_selectedTab($$invalidate(4, selectedTab = $$props.selectedTab));
+    		if ("maxWidth" in $$props) $$invalidate(5, maxWidth = $$props.maxWidth);
     	};
 
     	let visibleArrows;
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*showNavigation, tabsContainer, w*/ 4192) {
+    		if ($$self.$$.dirty & /*showNavigation, tabsContainer, w*/ 8384) {
     			 {
     				if (!showNavigation) {
     					if (tabsContainer) {
     						if (w < tabsContainer.scrollWidth) {
-    							$$invalidate(7, visibleArrows = true);
+    							$$invalidate(8, visibleArrows = true);
     						} else {
-    							$$invalidate(7, visibleArrows = false);
+    							$$invalidate(8, visibleArrows = false);
     						}
     					}
     				}
@@ -1093,7 +1109,7 @@
     		}
     	};
 
-    	 $$invalidate(7, visibleArrows = true);
+    	 $$invalidate(8, visibleArrows = true);
 
     	return [
     		tabs,
@@ -1101,6 +1117,7 @@
     		enableDelete,
     		enableAdd,
     		selectedTab,
+    		maxWidth,
     		tabsContainer,
     		w,
     		visibleArrows,
@@ -1124,10 +1141,11 @@
     		init(this, options, instance$1, create_fragment$1, safe_not_equal, {
     			tabs: 0,
     			color: 1,
-    			showNavigation: 12,
+    			showNavigation: 13,
     			enableDelete: 2,
     			enableAdd: 3,
-    			selectedTab: 4
+    			selectedTab: 4,
+    			maxWidth: 5
     		});
     	}
     }
@@ -1152,13 +1170,14 @@
     				showNavigation: /*showNavigation*/ ctx[2],
     				enableDelete: /*enableDelete*/ ctx[3],
     				enableAdd: /*enableAdd*/ ctx[4],
-    				selectedTab: /*selectedTab*/ ctx[5]
+    				selectedTab: /*selectedTab*/ ctx[6],
+    				maxWidth: /*maxWidth*/ ctx[5]
     			}
     		});
 
-    	tablist.$on("tabIndexChange", /*tabIndexChange_handler*/ ctx[12]);
-    	tablist.$on("addTab", /*addTab_handler*/ ctx[13]);
-    	tablist.$on("removeTab", /*removeTab_handler*/ ctx[14]);
+    	tablist.$on("tabIndexChange", /*tabIndexChange_handler*/ ctx[13]);
+    	tablist.$on("addTab", /*addTab_handler*/ ctx[14]);
+    	tablist.$on("removeTab", /*removeTab_handler*/ ctx[15]);
 
     	return {
     		c() {
@@ -1178,6 +1197,7 @@
     			if (dirty & /*showNavigation*/ 4) tablist_changes.showNavigation = /*showNavigation*/ ctx[2];
     			if (dirty & /*enableDelete*/ 8) tablist_changes.enableDelete = /*enableDelete*/ ctx[3];
     			if (dirty & /*enableAdd*/ 16) tablist_changes.enableAdd = /*enableAdd*/ ctx[4];
+    			if (dirty & /*maxWidth*/ 32) tablist_changes.maxWidth = /*maxWidth*/ ctx[5];
     			tablist.$set(tablist_changes);
     		},
     		i(local) {
@@ -1199,7 +1219,7 @@
     function instance$2($$self, $$props, $$invalidate) {
     	let $selectedTab;
     	const selectedTab = writable(null);
-    	component_subscribe($$self, selectedTab, value => $$invalidate(11, $selectedTab = value));
+    	component_subscribe($$self, selectedTab, value => $$invalidate(12, $selectedTab = value));
     	const dispatch = createEventDispatcher();
     	let { tabs = [] } = $$props;
     	let { color = "#4f81e5" } = $$props;
@@ -1207,6 +1227,7 @@
     	let { showNavigation = true } = $$props;
     	let { enableDelete = true } = $$props;
     	let { enableAdd = true } = $$props;
+    	let { maxWidth = null } = $$props;
 
     	function selectedTabIndex(data) {
     		selectTab(data);
@@ -1219,7 +1240,7 @@
     		await tick();
 
     		if (property) {
-    			$$invalidate(10, originalTabs = [...tabs]);
+    			$$invalidate(11, originalTabs = [...tabs]);
 
     			$$invalidate(0, tabs = tabs.map(function (t) {
     				return t[property];
@@ -1240,14 +1261,15 @@
     	$$self.$set = $$props => {
     		if ("tabs" in $$props) $$invalidate(0, tabs = $$props.tabs);
     		if ("color" in $$props) $$invalidate(1, color = $$props.color);
-    		if ("property" in $$props) $$invalidate(8, property = $$props.property);
+    		if ("property" in $$props) $$invalidate(9, property = $$props.property);
     		if ("showNavigation" in $$props) $$invalidate(2, showNavigation = $$props.showNavigation);
     		if ("enableDelete" in $$props) $$invalidate(3, enableDelete = $$props.enableDelete);
     		if ("enableAdd" in $$props) $$invalidate(4, enableAdd = $$props.enableAdd);
+    		if ("maxWidth" in $$props) $$invalidate(5, maxWidth = $$props.maxWidth);
     	};
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 3329) {
+    		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 6657) {
     			 {
     				let data = {
     					index: $selectedTab,
@@ -1272,6 +1294,7 @@
     		showNavigation,
     		enableDelete,
     		enableAdd,
+    		maxWidth,
     		selectedTab,
     		dispatch,
     		selectTab,
@@ -1293,16 +1316,17 @@
     		init(this, options, instance$2, create_fragment$2, safe_not_equal, {
     			tabs: 0,
     			color: 1,
-    			property: 8,
+    			property: 9,
     			showNavigation: 2,
     			enableDelete: 3,
     			enableAdd: 4,
-    			selectedTabIndex: 9
+    			maxWidth: 5,
+    			selectedTabIndex: 10
     		});
     	}
 
     	get selectedTabIndex() {
-    		return this.$$.ctx[9];
+    		return this.$$.ctx[10];
     	}
     }
 

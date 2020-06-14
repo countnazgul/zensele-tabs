@@ -10,10 +10,12 @@
   export let color;
   export let enableDelete;
   export let selectedTab;
+  export let maxWidth;
 
   let element;
   let isSelected;
 
+  $: width = "";
   $: isSelected = $selectedTab === index;
   $: {
     if (isSelected === true && element) {
@@ -21,7 +23,11 @@
     }
   }
 
-  onMount(async () => {});
+  onMount(async () => {
+    if (maxWidth) {
+      width = `max-width: ${maxWidth}px;`;
+    }
+  });
 </script>
 
 <style>
@@ -74,7 +80,7 @@
   }}
   class="zenzele-tabs__tab"
   class:zenzele-tabs__selected={isSelected}
-  style="--theme-color: {color}">
+  style="--theme-color: {color}; {width}">
   <div style="display: flex; justify-content: center">
     <div bind:this={element} class="titleContent" title={label}>{label}</div>
     {#if isSelected}

@@ -54,6 +54,7 @@ Check out this [repl](https://svelte.dev/repl/b3842886317b4e4e93986c629de007e7?v
 - `showNavigation` - (default `true`) When its set to `false` the navigation arrows will be shown only when there is no enough space for all the tabs to be shown at the same time
 - `enableDelete` - (default `true`) show/hide delete icon
 - `enableAdd` - (default `true`) show/hide add icon
+- `maxWidth` - (default `null`, **optional**)  control the max width, in `px`, of the tabs. Example: `maxWidh="{300}"`
 
 ## Events
 

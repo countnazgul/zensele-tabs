@@ -11,6 +11,7 @@
   export let enableDelete;
   export let enableAdd;
   export let selectedTab;
+  export let maxWidth;
 
   let tabsContainer;
   let w;
@@ -112,6 +113,7 @@
         {enableDelete}
         {selectedTab}
         label={tab}
+        {maxWidth}
         on:removeTab={event => dispatch('removeTab', event.detail)} />
     {/each}
 

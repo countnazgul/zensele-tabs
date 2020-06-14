@@ -13,6 +13,7 @@
   export let showNavigation = true;
   export let enableDelete = true;
   export let enableAdd = true;
+  export let maxWidth = null;
 
   export function selectedTabIndex(data) {
     selectTab(data);
@@ -69,6 +70,7 @@
     {enableDelete}
     {enableAdd}
     {selectedTab}
+    {maxWidth}
     on:tabIndexChange={event => selectTab(event.detail)}
     on:addTab={() => dispatch('addTab')}
     on:removeTab={event => dispatch('removeTab', event.detail)} />
