@@ -29,28 +29,10 @@
     { name: "Five 5", blah: 123 }
   ];
 
-  // let tabs1 = [
-  //   "One 1",
-  //   "Two 2",
-  //   "Three 3",
-  //   "Four 4",
-  //   "Five 5",
-  //   "Six 6",
-  //   "Seven 7",
-  //   "Eight 8",
-  //   "Nine 9",
-  //   "Ten 10",
-  //   "Eleven 11",
-  //   "Twelve 12",
-  //   "Thirteen 13",
-  //   "Fourteen 14",
-  //   "Fifteen 15",
-  //   "And avery very very very very very long one",
-  // ];
-
   let show = true;
+  let tabBar1;
   $: active = 0;
-  $: console.log(active);
+  // $: console.log(active);
 </script>
 
 <style>
@@ -61,9 +43,8 @@
 </style>
 
 <main>
-  <button on:click={() => active++}>TEST</button>
   {#if show}
-    <div style="border: 1px solid red">
+    <div>
       <Tabs
         {tabs}
         enableDelete={false}
@@ -76,7 +57,15 @@
         color={'red'}
         property={'name'} />
 
+      <button
+        on:click={() => {
+          tabBar1.selectedTabIndex(active);
+          active++;
+        }}>
+        TEST
+      </button>
       <Tabs
+        bind:this={tabBar1}
         tabs={tabs1}
         enableDelete={false}
         enableAdd={false}

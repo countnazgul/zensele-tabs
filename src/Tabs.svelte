@@ -15,8 +15,18 @@
   export let enableAdd = true;
   export let maxWidth = null;
 
+  let manual = false;
+
   export function selectedTabIndex(data) {
+    manual = true;
     selectTab(data);
+    tick().then(function() {
+      manual = false;
+    });
+  }
+
+  function dispatchEvent(data) {
+    if (!manual) dispatch("tabIndexChange", data);
   }
 
   let originalTabs = [];
@@ -34,7 +44,7 @@
       };
     }
 
-    dispatch("tabIndexChange", data);
+    dispatchEvent(data);
   }
 
   onMount(async () => {

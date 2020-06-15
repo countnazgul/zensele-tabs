@@ -1175,9 +1175,9 @@
     			}
     		});
 
-    	tablist.$on("tabIndexChange", /*tabIndexChange_handler*/ ctx[13]);
-    	tablist.$on("addTab", /*addTab_handler*/ ctx[14]);
-    	tablist.$on("removeTab", /*removeTab_handler*/ ctx[15]);
+    	tablist.$on("tabIndexChange", /*tabIndexChange_handler*/ ctx[15]);
+    	tablist.$on("addTab", /*addTab_handler*/ ctx[16]);
+    	tablist.$on("removeTab", /*removeTab_handler*/ ctx[17]);
 
     	return {
     		c() {
@@ -1219,7 +1219,7 @@
     function instance$2($$self, $$props, $$invalidate) {
     	let $selectedTab;
     	const selectedTab = writable(null);
-    	component_subscribe($$self, selectedTab, value => $$invalidate(12, $selectedTab = value));
+    	component_subscribe($$self, selectedTab, value => $$invalidate(13, $selectedTab = value));
     	const dispatch = createEventDispatcher();
     	let { tabs = [] } = $$props;
     	let { color = "#4f81e5" } = $$props;
@@ -1228,9 +1228,19 @@
     	let { enableDelete = true } = $$props;
     	let { enableAdd = true } = $$props;
     	let { maxWidth = null } = $$props;
+    	let manual = false;
 
     	function selectedTabIndex(data) {
+    		manual = true;
     		selectTab(data);
+
+    		tick().then(function () {
+    			manual = false;
+    		});
+    	}
+
+    	function dispatchEvent(data) {
+    		if (!manual) dispatch("tabIndexChange", data);
     	}
 
     	let originalTabs = [];
@@ -1240,7 +1250,7 @@
     		await tick();
 
     		if (property) {
-    			$$invalidate(11, originalTabs = [...tabs]);
+    			$$invalidate(12, originalTabs = [...tabs]);
 
     			$$invalidate(0, tabs = tabs.map(function (t) {
     				return t[property];
@@ -1269,7 +1279,7 @@
     	};
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 6657) {
+    		if ($$self.$$.dirty & /*$selectedTab, tabs, property, originalTabs*/ 12801) {
     			 {
     				let data = {
     					index: $selectedTab,
@@ -1283,7 +1293,7 @@
     					};
     				}
 
-    				dispatch("tabIndexChange", data);
+    				dispatchEvent(data);
     			}
     		}
     	};
@@ -1300,8 +1310,10 @@
     		selectTab,
     		property,
     		selectedTabIndex,
+    		manual,
     		originalTabs,
     		$selectedTab,
+    		dispatchEvent,
     		tabIndexChange_handler,
     		addTab_handler,
     		removeTab_handler
